@@ -17,8 +17,8 @@ RUN mkdir -p /bin/ /config/ /data/ && \
   ffmpeg \
   aria2 \
   py3-pip && \
-  curl -L https://yt-dl.org/downloads/latest/youtube-dl -o /usr/local/bin/youtube-dl && \
-  curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -o /usr/local/bin/yt-dlp && \
+  curl -q -LSsf https://yt-dl.org/downloads/latest/youtube-dl -o /usr/local/bin/youtube-dl && \
+  curl -q -LSsf https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -o /usr/local/bin/yt-dlp && \
   chmod a+rx /usr/local/bin/yt-dlp /usr/local/bin/youtube-dl
 
 COPY ./bin/. /usr/local/bin/
