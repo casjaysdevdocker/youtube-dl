@@ -15,7 +15,7 @@ RUN mkdir -p /bin/ /config/ /data/ && \
   apk update -U --no-cache && \
   apk add --no-cache \
   ffmpeg \
-  aria2c \
+  aria2 \
   py3-pip && \
   curl -L https://yt-dl.org/downloads/latest/youtube-dl -o /usr/local/bin/youtube-dl && \
   curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -o /usr/local/bin/yt-dlp && \
