@@ -1,4 +1,4 @@
 #!/usr/bin/env sh
-youtube-dl -f bestaudio --extract-audio --audio-format mp3 --config-location "$HOME/.config/youtube-dl/music" "$@"
+youtube-dl -f bestaudio --extract-audio --audio-format mp3 --embed-thumbnail --add-metadata --audio-quality 320k --config-location "$HOME/.config/youtube-dl/music" "$@"
 exit $?
 
