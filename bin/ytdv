@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+youtube-dl -f bestvideo+bestaudio --config-location "$HOME/.config/youtube-dl/video" "$@"
+exit $?
+
