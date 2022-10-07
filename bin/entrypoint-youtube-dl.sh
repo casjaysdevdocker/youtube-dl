@@ -123,7 +123,19 @@ healthcheck) # Docker healthcheck
   if [ $# -eq 0 ]; then
     __exec_bash "/bin/bash"
   else
-    __exec_bash "/bin/bash"
+    case "$1" in
+      audio)
+        shift 1
+        ytda "$@"
+        ;;
+      video)
+        shift 1
+        ytdv "$@"
+        ;;
+      *)
+        ytda "$@"
+        ytdv "$@"
+    esac
   fi
   exitCode=$?
   ;;
