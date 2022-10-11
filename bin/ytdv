@@ -1,4 +1,8 @@
 #!/usr/bin/env sh
+# Set bash options
+[ -n "$DEBUG" ] && set -x
+set -o pipefail
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 youtube-dl -f bestvideo+bestaudio --config-location "$HOME/.config/youtube-dl/video" "$@"
 exit $?
 
