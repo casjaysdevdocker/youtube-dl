@@ -3,49 +3,77 @@
 youtube-dl README  
   
   
-## Run container
+## Install my system scripts  
 
+```shell
+ sudo bash -c "$(curl -q -LSsf "https://github.com/systemmgr/installer/raw/main/install.sh")"
+ sudo systemmgr --config && sudo systemmgr install scripts  
+```
+  
+## Automatic install/update  
+  
 ```shell
 dockermgr update youtube-dl
 ```
-
-### via command line
-
+  
+## Install and run container
+  
 ```shell
-docker pull casjaysdevdocker/youtube-dl:latest && \
+dockerHome="/var/lib/srv/$USER/docker/casjaysdevdocker/youtube-dl/youtube-dl/latest/rootfs"
+mkdir -p "/var/lib/srv/$USER/docker/youtube-dl/rootfs"
+git clone "https://github.com/dockermgr/youtube-dl" "$HOME/.local/share/CasjaysDev/dockermgr/youtube-dl"
+cp -Rfva "$HOME/.local/share/CasjaysDev/dockermgr/youtube-dl/rootfs/." "$dockerHome/"
 docker run -d \
 --restart always \
---name casjaysdevdocker-youtube-dl \
---hostname casjaysdev-youtube-dl \
+--privileged \
+--name casjaysdevdocker-youtube-dl-latest \
+--hostname youtube-dl \
 -e TZ=${TIMEZONE:-America/New_York} \
--v $HOME/Videos/ytdl:/data/video:z \
--v $HOME/Music/ytdl:/data/audio:z \
--v $HOME/.local/share/srv/docker/youtube-dl/files/config:/config:z \
+-v "$dockerHome/data:/data:z" \
+-v "$dockerHome/config:/config:z" \
 -p 80:80 \
 casjaysdevdocker/youtube-dl:latest
 ```
-
-### via docker-compose
-
+  
+## via docker-compose  
+  
 ```yaml
 version: "2"
 services:
-  youtube-dl:
+  ProjectName:
     image: casjaysdevdocker/youtube-dl
-    container_name: youtube-dl
+    container_name: casjaysdevdocker-youtube-dl
     environment:
       - TZ=America/New_York
-      - HOSTNAME=casjaysdev-youtube-dl
+      - HOSTNAME=youtube-dl
     volumes:
-      - $HOME/Videos/ytdl:/data/video:z
-      - $HOME/Music/ytdl:/data/audio:z
-      - $HOME/.local/share/srv/docker/youtube-dl/files/config:/config:z
+      - "/var/lib/srv/$USER/docker/casjaysdevdocker/youtube-dl/youtube-dl/latest/rootfs/data:/data:z"
+      - "/var/lib/srv/$USER/docker/casjaysdevdocker/youtube-dl/youtube-dl/latest/rootfs/config:/config:z"
     ports:
       - 80:80
     restart: always
 ```
-
+  
+## Get source files  
+  
+```shell
+dockermgr download src casjaysdevdocker/youtube-dl
+```
+  
+OR
+  
+```shell
+git clone "https://github.com/casjaysdevdocker/youtube-dl" "$HOME/Projects/github/casjaysdevdocker/youtube-dl"
+```
+  
+## Build container  
+  
+```shell
+cd "$HOME/Projects/github/casjaysdevdocker/youtube-dl"
+buildx 
+```
+  
 ## Authors  
-
-🤖 casjay: [Github](https://github.com/casjay) [Docker](https://hub.docker.com/r/casjay) 🤖  
-⛵ CasjaysDevDocker: [Github](https://github.com/casjaysdevdocker) [Docker](https://hub.docker.com/r/casjaysdevdocker) ⛵  
+  
+🤖 casjay: [Github](https://github.com/casjay) 🤖  
+⛵ casjaysdevdocker: [Github](https://github.com/casjaysdevdocker) [Docker](https://hub.docker.com/u/casjaysdevdocker) ⛵  
